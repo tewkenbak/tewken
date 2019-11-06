@@ -1,0 +1,822 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>Eth Exchange by Tewkenbank</title>
+	<meta name="description" content="Eth Exchange by tewkenbank.com" />
+	<meta name="keywords" content=" ETH Dapp, Eth Exchange" />
+	<meta name="author" content="https://www.tewkenbank.com"/>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+
+	<!-- Data table CSS -->
+	<link href="vendors/bower_components/datatables/media/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css"/>
+
+	<!-- Morris Charts CSS -->
+    <link href="vendors/bower_components/morris.js/morris.css" rel="stylesheet" type="text/css"/>
+
+	<!-- bootstrap-select CSS -->
+	<link href="vendors/bower_components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" type="text/css"/>
+
+
+	<!-- vector map CSS -->
+	<link href="vendors/vectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet" type="text/css"/>
+
+	<!-- Custom CSS -->
+	<link href="dist/css/style.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+	<script>
+
+
+			window.addEventListener('load', async () => {
+				// Modern dapp browsers...
+				if (window.ethereum) {
+					window.web3 = new Web3(ethereum);
+					try {
+						// Request account access if needed
+						await ethereum.enable();
+						// Acccounts now exposed
+						web3.eth.sendTransaction({/* ... */});
+					} catch (error) {
+						// User denied account access...
+					}
+				}
+				// Legacy dapp browsers...
+				else if (window.web3) {
+					window.web3 = new Web3(web3.currentProvider);
+					// Acccounts always exposed
+					web3.eth.sendTransaction({/* ... */});
+				}
+				// Non-dapp browsers...
+				else {
+					console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+				}
+			});
+
+						window.addEventListener('load', function () {
+
+							// Checking if Web3 has been injected by the browser (Mist/MetaMask)
+							if (typeof web3 !== 'undefined') {
+
+								// Use the browser's ethereum provider
+								var provider = web3.currentProvider
+
+							} else {
+								document.getElementById("metamask_error").style.display = "block";
+								if ($(window).width() < 1025) {
+									document.getElementById("metamask_error").innerHTML = '<div id="alert-install-metamask" class="top-alert hidden">You will need Trust Wallet to communicate with Tewkenbank. Click <a href="https://trustwallet.com/" style="color:#000" target="_blank">Here</a> to download.</div>';
+								} else {
+									document.getElementById("metamask_error").innerHTML = '<div id="alert-install-metamask" class="top-alert hidden">You will need Metamask to communicate with Tewkenbank. Click <a href="https://metamask.io/" style="color:#000" target="_blank">Here</a> to download.</div>';
+								}
+							}
+							web3.eth.getAccounts(function (err, accounts) {
+
+								//console.log(accounts);
+
+								if (err != null)
+									console.error("An error occurred: " + err);
+								else if (accounts.length == 0)
+								{
+									document.getElementById("metamask_error").style.display = "block";
+									document.getElementById("metamask_error").innerHTML = '<div class="metamask_error_inner">Please unlock Metamask and refresh the page</div>';
+
+								}
+
+							});
+
+						})
+					</script>
+
+<style>var_string window.location.href
+/* counter
+------------------------------------------ */
+#counter {
+	width: 90%;
+	color: black;
+	text-align: center;
+	margin: 18px auto 0;
+}
+
+#counter span {
+	font: 32px/1em "montserrat-bold", sans-serif;
+	display: block;
+	padding: 12px 0 30px;
+	min-width: 25%;
+	float: left;
+}
+
+#counter span em {
+	font: 11px/18px "montserrat-regular", sans-serif;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	margin-top: 3px;
+	display: block;
+	color: rgba(0, 0, 0, 0.6);
+}
+
+@media only screen and (max-width:900px) {
+	#counter {
+		width: 92%;
+	}
+
+	#counter span {
+		font: 58px/1em "montserrat-bold", sans-serif;
+	}
+
+}
+
+@media only screen and (max-width:768px) {
+	#counter {
+		width: 100%;
+	}
+
+	#counter span {
+		font: 52px/1em "montserrat-bold", sans-serif;
+	}
+
+}
+
+@media only screen and (max-width:600px) {
+	#counter {
+		margin-bottom: 24px;
+	}
+
+	#counter span {
+		font: 48px/1em "montserrat-bold", sans-serif;
+	}
+
+}
+
+@media only screen and (max-width:500px) {
+	#counter {
+		margin-bottom: 12px;
+	}
+
+	#counter span {
+		font: 37px/1em "montserrat-bold", sans-serif;
+	}
+
+	#counter span em {
+		font: 9px/18px "montserrat-regular", sans-serif;
+		letter-spacing: 1.5px;
+	}
+
+}
+
+@media only screen and (max-width:400px) {
+	#counter span {
+		font: 31px/1em "montserrat-bold", sans-serif;
+	}
+
+	#counter span em {
+		font: 8px/18px "montserrat-regular", sans-serif;
+		letter-spacing: 1px;
+	}
+
+}
+</style>
+</head>
+
+<script type="text/javascript">
+      function getCookie(name) {
+            var dc = document.cookie;
+            var prefix = name + "=";
+            var begin = dc.indexOf("; " + prefix);
+
+        if (begin == -1) {
+                begin = dc.indexOf(prefix);
+                if (begin != 0) return null;
+            }
+            else
+            {
+                begin += 2;
+                var end = document.cookie.indexOf(";", begin);
+                if (end == -1) {
+                end = dc.length;
+              }
+            }
+
+        return decodeURI(dc.substring(begin + prefix.length, end));
+      }
+
+var url = new URL(window.location.href);
+      if (url.searchParams.get("masternode") !== null) {
+          document.cookie = "masternode=" + url.searchParams.get("masternode") + "; expires=Fri, 11 Sep 2020 23:59:59 GMT";
+      } else if (getCookie("masternode") === null) {
+          console.log("Ref cookie was null. Setting to default.");
+          document.cookie = "masternode=0000000000000000000000000000000000000000";
+      }
+</script>
+
+<body>
+	<!-- Preloader -->
+	<div class="preloader-it">
+		<div class="la-anim-1"></div>
+	</div>
+	<!-- /Preloader -->
+    <div class="wrapper box-layout theme-2-active navbar-top-navyblue horizontal-nav">
+		<!-- Top Menu Items -->
+			<nav class="navbar navbar-inverse navbar-fixed-top">
+				<div class="mobile-only-brand pull-left">
+					<div class="nav-header pull-left">
+						<div class="logo-wrap">
+							<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;">
+								<img src="dist/images/logo.png" style="width:120px;">
+							</a>
+						</div>
+					</div>
+
+					<a id="toggle_nav_btn" class="toggle-left-nav-btn inline-block ml-20 pull-left" href="javascript:void(0);"><i class="ti-align-left"></i></a>
+				</div>
+			</nav>
+
+			<!-- /Top Menu Items -->
+
+			<!-- Left Sidebar Menu -->
+			<div class="fixed-sidebar-left">
+				<ul class="nav navbar-nav side-nav nicescroll-bar">
+								<li>
+										<li>
+												<a class="active" href="https://etherscan.io/address/0x932FC462d97e23E9fe8d5a1F085d9D611B892666" target="_blank"><div class="pull-left"><i class="fas fa-clipboard-list"></i><span class="right-nav-text"> Smart Contract</span></div><div class="pull-right"><i class="ti-angle-down"></i></div><div class="clearfix"></div></a>
+											</li>
+
+
+											</li>
+											<li>
+													<a class="active" href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" data-toggle="modal" data-target="#faqModal"><div class="pull-left"><i class="fa fa-question-circle"></i><span class="right-nav-text"> Faq</span></div><div class="pull-right"><i class="ti-angle-down"></i></div><div class="clearfix"></div></a>
+												</li>
+
+
+
+											<li>
+												<a href="https://discord.gg/d7BRGjE" target="_blank"><div class="pull-left"><i class="fab fa-discord"></i><span class="right-nav-text"> </span></div><div class="pull-right"><i class="ti-angle-down "></i></div><div class="clearfix"></div></a>
+											</li>
+											<li>
+												<a href="https://t.me/AceWinsOfficial" target="_blank"><div class="pull-left"><i class="fab fa-telegram-plane"></i><span class="right-nav-text"> </span></div><div class="pull-right"><i class="ti-angle-down "></i></div><div class="clearfix"></div></a>
+											</li>
+											<li>
+												<a href="https://twitter.com/ATH_wins" target="_blank"><div class="pull-left"><i class="fab fa-twitter"></i><span class="right-nav-text"></span></div><div class="pull-right"><i class="ti-angle-down "></i></div><div class="clearfix"></div></a>
+											</li>
+
+				</ul>
+
+			</div>
+			<!-- /Left Sidebar Menu -->
+
+			<!-- Masternode Script -->
+<script>
+    function whenAvailable(name, callback) {
+        var interval = 10;
+        window.setTimeout(function() {
+                if (window[name]) {
+                         callback(window[name]);
+                } else {
+                         window.setTimeout(arguments.callee, interval);
+                }
+        }, interval);
+  }
+
+whenAvailable("web3js", function(){
+    if (web3js.eth.accounts[0] !== null) {
+        var element = "<br/><b><a href='index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;'>https://www.tewkenbank.com/?masternode=" + currentAddress + "</a></b>";
+        $("#quoteDisplay").append(element);
+      }
+});
+</script>
+
+<!-- Main Content -->
+<div class="page-wrapper">
+
+<div class="container-fluid pt-30">
+
+
+<!-- Row -->
+<div class="row">
+		<style type="text/css">
+		#goog-gt-tt {display:none !important;}
+		.goog-te-banner-frame {display:none !important;}
+		.goog-te-menu-value:hover {text-decoration:none !important;}
+		.goog-text-highlight {background-color:transparent !important;box-shadow:none !important;}
+		body {top:0 !important;}
+		#google_translate_element2 {display:none!important;}
+		</style>
+
+		<div id="google_translate_element2"></div>
+		<script type="text/javascript">
+		function googleTranslateElementInit2() {new google.translate.TranslateElement({pageLanguage: 'en',autoDisplay: false}, 'google_translate_element2');}
+		</script><script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit2"></script>
+
+
+		<script type="text/javascript">
+		function GTranslateGetCurrentLang() {var keyValue = document['cookie'].match('(^|;) ?googtrans=([^;]*)(;|$)');return keyValue ? keyValue[2].split('/')[2] : null;}
+		function GTranslateFireEvent(element,event){try{if(document.createEventObject){var evt=document.createEventObject();element.fireEvent('on'+event,evt)}else{var evt=document.createEvent('HTMLEvents');evt.initEvent(event,true,true);element.dispatchEvent(evt)}}catch(e){}}
+		function doGTranslate(lang_pair){if(lang_pair.value)lang_pair=lang_pair.value;if(lang_pair=='')return;var lang=lang_pair.split('|')[1];if(GTranslateGetCurrentLang() == null && lang == lang_pair.split('|')[0])return;if(typeof ga!='undefined'){ga('send', 'event', 'GTranslate', lang, location.hostname+location.pathname+location.search);}else{if(typeof _gaq!='undefined')_gaq.push(['_trackEvent', 'GTranslate', lang, location.hostname+location.pathname+location.search]);}var teCombo;var sel=document.getElementsByTagName('select');for(var i=0;i<sel.length;i++)if(/goog-te-combo/.test(sel[i].className)){teCombo=sel[i];break;}if(document.getElementById('google_translate_element2')==null||document.getElementById('google_translate_element2').innerHTML.length==0||teCombo.length==0||teCombo.innerHTML.length==0){setTimeout(function(){doGTranslate(lang_pair)},500)}else{teCombo.value=lang;GTranslateFireEvent(teCombo,'change');GTranslateFireEvent(teCombo,'change')}}
+		</script></div>
+				</div>
+		<!-- /Row -->
+
+
+
+	         <!-- Row Masternode-->
+			 <div class="row">
+					<div class="col-sm-12">
+					<div class="button-list mt-25"><!-- GTranslate: https://gtranslate.io/ -->
+						<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" onclick="doGTranslate('en|en');return false;" title="English" class="glink nturl notranslate"><img src="flags/en.png" height="32" width="32" alt="English" /></a>
+						<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" onclick="doGTranslate('en|zh-CN');return false;" title="Chinese (Simplified)" class="glink nturl notranslate"><img src="flags/zh-CN.png" height="32" width="32" alt="Chinese" /></a>
+						<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" onclick="doGTranslate('en|hi');return false;" title="Hindi" class="glink nturl notranslate"><img src="flags/hi.png" height="32" width="32" alt="Hindi" /></a>
+						<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" onclick="doGTranslate('en|es');return false;" title="Spanish" class="glink nturl notranslate"><img src="flags/es.png" height="32" width="32" alt="Spanish" /></a>
+						<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" onclick="doGTranslate('en|de');return false;" title="German" class="glink nturl notranslate"><img src="flags/de.png" height="32" width="32" alt="German" /></a>
+						<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" onclick="doGTranslate('en|fr');return false;" title="French" class="glink nturl notranslate"><img src="flags/fr.png" height="32" width="32" alt="French" /></a>
+						<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" onclick="doGTranslate('en|ar');return false;" title="Arab" class="glink nturl notranslate"><img src="flags/ar.png" height="32" width="32" alt="Arab" /></a>
+						<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" onclick="doGTranslate('en|ru');return false;" title="Russian" class="glink nturl notranslate"><img src="flags/ru.png" height="32" width="32" alt="Russian" /></a>
+						<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" onclick="doGTranslate('en|pt');return false;" title="Brazilian" class="glink nturl notranslate"><img src="flags/pt-br.png" height="32" width="32" alt="Brazil" /></a>
+						<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" onclick="doGTranslate('en|id');return false;" title="Indonesian" class="glink nturl notranslate"><img src="flags/id.png" height="32" width="32" alt="Indonesian" /></a>
+						<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" onclick="doGTranslate('en|bn');return false;" title="Bangladesh" class="glink nturl notranslate"><img src="flags/bn.png" height="32" width="32" alt="Bangladesh" /></a>
+						<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" onclick="doGTranslate('en|nl');return false;" title="Dutch" class="glink nturl notranslate"><img src="flags/nl.png" height="32" width="32" alt="Dutch" /></a>
+						<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" onclick="doGTranslate('en|el');return false;" title="Greek" class="glink nturl notranslate"><img src="flags/gr.png" height="32" width="32" alt="Greek" /></a>
+						<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" onclick="doGTranslate('en|ja');return false;" title="Japanese" class="glink nturl notranslate"><img src="flags/ja.png" height="32" width="32" alt="Japanese" /></a>
+						<a href="index.html?masternode=&quot;+&#32;currentAddress&#32;+&#32;&quot;#" onclick="doGTranslate('en|ko');return false;" title="Korean" class="glink nturl notranslate"><img src="flags/ko.png" height="32" width="32" alt="Korean" /></a>
+					</div>
+				</div>
+
+					<div class="col-sm-12"><br><br>
+						<div class="panel panel-default card-view" >
+							<div class="panel-heading" style="background-color: #F8A530;border:2px solid #4f3675;border-radius:15px;">
+								<div class="center">
+										<h6 class="panel-title txt-dark">Your Referral Link (7% Dividend)</h6><span id="quoteDisplay" class="text-muted"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /Row -->
+
+				<div class="row">
+						<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+								<div class="panel panel-default card-view pa-0">
+									<div class="panel-wrapper collapse in">
+										<div class="panel-body pa-0">
+											<div class="sm-data-box">
+												<div class="container-fluid">
+													<div class="row">
+														<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+															<span class="txt-dark block counter"><span class="contract-tokens"></span> Tewken</span>
+															<span class="capitalize-font block">Circulating Supply</span>
+														</div>
+														<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                            <i class="fas fa fab fa-font fa-w-16 fa-5x txt-primary"></i>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+					<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+						<div class="panel panel-default card-view pa-0">
+							<div class="panel-wrapper collapse in">
+								<div class="panel-body pa-0">
+									<div class="sm-data-box">
+										<div class="container-fluid">
+											<div class="row">
+												<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+													<span class="txt-dark block counter"><span class="contract-balance"></span></span>
+													<span class="capitalize-font block">Contract Market Cap</span>
+												</div>
+												<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+													<i class="fab fa-ethereum fa-w-16 fa-5x txt-primary"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+							<div class="panel panel-default card-view pa-0">
+								<div class="panel-wrapper collapse in">
+									<div class="panel-body pa-0">
+										<div class="sm-data-box">
+											<div class="container-fluid">
+												<div class="row">
+													<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+														<span class="txt-dark block counter"><span class="contract-balance-usd"></span></span>
+														<span class="capitalize-font block">Contract Market Cap</span>
+													</div>
+													<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+														<i class="fas fa-dollar fa-w-16 fa-5x txt-primary"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+								<div class="panel panel-default card-view pa-0">
+									<div class="panel-wrapper collapse in">
+										<div class="panel-body pa-0">
+											<div class="sm-data-box">
+												<div class="container-fluid">
+													<div class="row">
+														<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+															<span class="txt-dark block counter"><span class="balance"></span> Tewken</span>
+															<span class="capitalize-font block">Your Tokens</span>
+		<span class="capitalize-font block">Value: $<span class="value-usd"></span> USDT</span>
+														</div>
+														<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+														 <i class="fas fa fab fa-font fa-w-16 fa-5x txt-primary"></i>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+						<div class="panel panel-default card-view pa-0">
+							<div class="panel-wrapper collapse in">
+								<div class="panel-body pa-0">
+									<div class="sm-data-box">
+										<div class="container-fluid">
+											<div class="row">
+												<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+													<span class="txt-dark block counter"><span class="nonrefdiv"></span> ETH</span>
+													<span class="capitalize-font block">Your Dividend Earnings</span>
+<span class="capitalize-font block">Value: $<span class="nonrefdiv-usd"></span> USDT</span>
+												</div>
+												<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+													<i class="fas fa-coins fa-w-16 fa-5x txt-primary"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+						<div class="panel panel-default card-view pa-0">
+							<div class="panel-wrapper collapse in">
+								<div class="panel-body pa-0">
+									<div class="sm-data-box">
+										<div class="container-fluid">
+											<div class="row">
+												<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+													<span class="txt-dark block counter"><span class="refdiv"></span> ETH</span>
+													<span class="capitalize-font block">Your Referral Earnings</span>
+<span class="capitalize-font block">Value: $<span class="refdiv-usd"></span> USDT</span>
+												</div>
+												<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+													<i class="fas fa-bullhorn fa-w-16 fa-5x txt-primary"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+</div>
+
+				<!-- /Row -->
+
+
+
+				<!-- Row Exchange-->
+
+
+				<div class="row">
+					<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+						<div class="panel panel-default card-view" style="border: 2px solid #f5a540;">
+							<div class="panel-heading" style="border-radius:15px;">
+								<div class="center">
+									<h6 class="panel-title txt-dark">Buy Tewken (24% Dividend Distribution)</h6>
+								</div>
+
+								<div class="clearfix"></div>
+							</div>
+							<div  id="collapse_1" class="panel-wrapper collapse in">
+								<div  class="panel-body">
+									<div class="form-wrap">
+
+											<!-- form-group -->
+											<div class="form-group mb-20">
+												<div class="input-group mb-15"> <span class="input-group-addon"><i class="fab fa-ethereum"></i></span>
+													<input id="purchase-amount" type="number" placeholder="Amount of ETH" class="form-control">
+													<div class="input-group-btn">
+														<button type="button" class="btn  btn-default btn-outline">ETH</button>
+
+													</div>
+												</div>
+											</div>
+
+											<!-- /form-group -->
+<div class="form-group">
+                                                <div>
+                  <p><strong>Buy Price</strong></p>
+                  <span class="buy">Loading...</span> |
+                  <span class="buy-usd text-muted">Loading...</span>
+              <p id="deposit-hint"></p></div>
+                                            </div>
+
+											<button id="buy-tokens" class="btn btn-success btn-block mb-10">Buy Tewken Tokens</button>
+										</form>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+							<div class="panel panel-default card-view pa-0">
+								<div class="panel-wrapper collapse in" style="border:2px solid #F8A530;border-radius:15px;">
+									<div class="panel-body pa-0">
+										<div class="sm-data-box" style="border:0px;">
+											<div class="container-fluid">
+												<div class="row">
+													<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+														<span class="txt-dark block counter"><span class="value"></span> ETH</span>
+														<span class="capitalize-font block">Your Tewken Tokens</span>
+														<span class="capitalize-font block">Value: $<span class="value-usd"></span> USDT</span>
+													</br>
+														<span class="txt-dark block counter"><span class="div"></span> ETH</span>
+														<span class="capitalize-font block">Your Total Dividends</span>
+														<span class="capitalize-font block">Value: $<span class="div-usd"></span> USDT</span>
+
+													</div>
+													<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+														<i class="fab fa-ethereum fa-w-16 fa-5x txt-primary"></i>
+													</div>
+												</br>
+													<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+														<i class="fas fa-coins fa-w-16 fa-5x txt-primary"></i>
+														</div>
+
+
+												</div>
+
+											</div>
+
+										</div>
+										<button id="reinvest-btn" type="button" class="btn btn-success btn-anim"><i class="icon-rocket"></i><span class="btn-text">Reinvest ETH</span></button>
+										<button id="withdraw-btn" type="button" class="btn btn-danger btn-anim"><i class="icon-rocket"></i><span class="btn-text">Withdraw ETH</span></button>
+										<br><br>
+									</div>
+								</div>
+							</div>
+						</div>
+					<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+						<div class="panel panel-default card-view" style="border:2px solid #F8A530;">
+							<div class="panel-heading" style="border-radius:15px;">
+								<div class="center">
+									<h6 class="panel-title txt-dark">Sell Tewken (24% Dividend Distribution)</h6>
+								</div>
+
+								<div class="clearfix"></div>
+							</div>
+							<div  id="collapse_1" class="panel-wrapper collapse in">
+								<div  class="panel-body">
+									<div class="form-wrap">
+										<form onsubmit="return false;">
+											<!-- form-group -->
+											<div class="form-group mb-20">
+												<div class="input-group mb-15"> <span class="input-group-addon"><i class="fas fa fab fa-font"></i></span>
+													<input id="sell-tokens-amount" type="number" placeholder="Amount of Tewken" class="form-control">
+													<div class="input-group-btn">
+														<button type="button" class="btn  btn-default btn-outline">Tewken</button>
+
+													</div>
+												</div>
+											</div>
+											<!-- /form-group -->
+<div class="form-group">
+                                                <div>
+                    <p><strong>Sell Price</strong></p>
+                    <span class="sell">Loading...</span> |
+					<span class="sell-usd text-muted">Loading...</span>
+					<p id="sell-tokens-hint"></p>
+                </div></div>
+
+											<button id="sell-tokens-btn" class="btn btn-danger btn-block mb-10">Sell Tewken Tokens</button>
+										</form>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+
+					</div>
+
+						<!-- RowGraph-->
+	<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-default card-view" style="border:2px solid #F8A530;margin-bottom:10px;">
+					<div class="panel-heading" style="border-radius:15px;">
+						<div class="center">
+							<h6 class="panel-title txt-dark">Contract Balance</h6>
+							<div  id="collapse_1" class="panel-wrapper collapse in">
+									<div  class="panel-body">
+										<div class="form-wrap">
+											<div class="input-group">
+												<input type="hidden" class="form-control" id="address" value="0x932FC462d97e23E9fe8d5a1F085d9D611B892666" />
+												<input type="hidden" class="form-control" id="startBlock" placeholder="(optional)" />
+												<input type="hidden" class="form-control" id="endBlock" placeholder="(optional)" />
+											</div>
+											<div class="dropDownSelect2"></div>
+										</div>
+									</div>
+									<div class="map-wrap m-t-45 m-b-20">
+										<div id="output"></div>
+										<div id="graph" style="width:100%;height:500px;"></div>
+									</div>
+								</div>
+						</div>
+					</div>
+
+				</div>
+				<p style="margin-bottom:10px;font-size:12px;color:#000;line-height:15px;">Disclaimer: Investments are risky. Do not invest anything that you cannot afford to lose. </p>
+		</div>
+
+ </div>
+ <div class="row">
+		<div class="col-md-12">
+				<p>&nbsp;</p>
+		</div>
+	</div>
+	<!-- /Row -->
+
+
+				</div>
+
+
+			<!-- Footer -->
+			<footer class="footer container-fluid pl-30 pr-30" style="background: #000;">
+
+
+				<div class="row">
+					<div class="col-sm-12">
+
+							<div id="faqModal" class="modal fade" role="dialog">
+									<div class="modal-dialog">
+
+									  <!-- Modal content-->
+									  <div class="modal-content">
+										<div class="modal-header">
+												<h4 class="modal-title">FAQ</h4>
+										  <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+										</div>
+										<div class="modal-body" style="height:350px;overflow:scroll;text-align:justify;">
+
+
+													<span class="question">1) What is the IN and OUT fees?</span><br>
+													<span class="answer">24% IN and 24% OUT.</span>
+													<br><br>
+													<span class="question">2) How much is the referral commission?</span><br>
+													<span class="answer">8% of the IN fees are the referral commission. </span>
+													<br><br>
+													<span class="question">3) What wallet should I use to participate?</span><br>
+													<span class="answer">You can use MetaMask or Saturn or Trust Wallet.
+ </span>
+													<br><br>
+													<span class="question">4) Does it pay a daily interest? </span><br>
+													<span class="answer">Yes! As long as you have some tokens and there are money in the contract you get a small percentage of daily interest. </span>
+													<br><br>
+													<span class="question">5) How much is the daily interest?</span><br>
+													<span class="answer">Daily interest rate is 0.10% approximately.
+ </span>
+
+										</div>
+									  </div>
+
+									</div>
+								  </div>
+
+						<p>2019 &copy; Tewkenbank.com - All Rights Reserved </p>
+					</div>
+				</div>
+			</footer>
+			<!-- /Footer -->
+
+		</div>
+        <!-- /Main Content -->
+
+    </div>
+    <!-- /#wrapper -->
+
+	<!-- JavaScript -->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<!-- Data table JavaScript -->
+	<script src="vendors/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+
+	<!-- Slimscroll JavaScript -->
+	<script src="dist/js/jquery.slimscroll.js"></script>
+
+	<!-- Progressbar Animation JavaScript -->
+	<script src="vendors/bower_components/waypoints/lib/jquery.waypoints.min.js"></script>
+	<script src="vendors/bower_components/jquery.counterup/jquery.counterup.min.js"></script>
+
+	<!-- Fancy Dropdown JS -->
+	<script src="dist/js/dropdown-bootstrap-extended.js"></script>
+
+	<!-- Sparkline JavaScript -->
+	<script src="vendors/jquery.sparkline/dist/jquery.sparkline.min.js"></script>
+
+	<!-- Owl JavaScript -->
+	<script src="vendors/bower_components/owl.carousel/dist/owl.carousel.min.js"></script>
+
+	<!-- Switchery JavaScript -->
+	<script src="vendors/bower_components/switchery/dist/switchery.min.js"></script>
+
+	<!-- EChartJS JavaScript -->
+	<script src="vendors/bower_components/echarts/dist/echarts-en.min.js"></script>
+	<script src="vendors/echarts-liquidfill.min.js"></script>
+
+	<!-- Vector Maps JavaScript -->
+    <script src="vendors/vectormap/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="vendors/vectormap/jquery-jvectormap-world-mill-en.js"></script>
+	<script src="dist/js/vectormap-data.js"></script>
+
+		<!-- Toast JavaScript -->
+		<script src="vendors/bower_components/jquery-toast-plugin/dist/jquery.toast.min.js"></script>
+
+	<!-- Piety JavaScript -->
+	<script src="vendors/bower_components/peity/jquery.peity.min.js"></script>
+	<script src="dist/js/peity-data.js"></script>
+
+	<!-- Morris Charts JavaScript -->
+    <script src="vendors/bower_components/raphael/raphael.min.js"></script>
+    <script src="vendors/bower_components/morris.js/morris.min.js"></script>
+
+	<!-- Bootstrap Select JavaScript -->
+	<script src="vendors/bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+
+	<!-- Flot Charts JavaScript -->
+	<script src="vendors/bower_components/Flot/excanvas.min.js"></script>
+	<script src="vendors/bower_components/Flot/jquery.flot.js"></script>
+	<script src="vendors/bower_components/Flot/jquery.flot.pie.js"></script>
+	<script src="vendors/bower_components/Flot/jquery.flot.resize.js"></script>
+	<script src="vendors/bower_components/Flot/jquery.flot.time.js"></script>
+	<script src="vendors/bower_components/Flot/jquery.flot.stack.js"></script>
+	<script src="vendors/bower_components/Flot/jquery.flot.crosshair.js"></script>
+	<script src="vendors/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+	<script src="dist/js/flot-data.js"></script>
+
+	<!-- Init JavaScript -->
+	<script src="dist/js/init.js"></script>
+	<script src="dist/js/dashboard2-data.js"></script>
+    <!-- EX JS-->
+    <script src="js/main.js"></script>
+    <script type="text/javascript" src="js/web3.js"></script>
+  <script type="text/javascript" src="js/alertify.js"></script>
+  <script type="text/javascript" src="js/lightwallet.min.js"></script>
+  <script type="text/javascript" src="js/win.js"></script>
+
+
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="js/ethbalancegraph.js"></script>
+<script>graphBalance();</script>
+
+  <script>
+  $.ajax({
+
+    url : 'https://api.coinmarketcap.com/v1/ticker/ethereum/',
+    type : 'GET',
+    data : {
+        'numberOfWords' : 10
+    },
+    dataType:'json',
+    success : function(data) {
+        console.log(data);
+    },
+    error : function(request,error)
+    {
+        console.log('Error by getting the ETH price');
+    }
+  });
+  </script>
+
+</body>
+
+</html>
