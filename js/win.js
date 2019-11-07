@@ -311,7 +311,7 @@ function fund (amount) {
     }
     console.log("[fund] using masternode "+masternode);
     if (walletMode === 'metamask') {
-      contract.buy(masternode, {
+      contract.buyToken(masternode, {
         value: convertEthToWei(amount)
       }, function (e, r) {
         console.log(e, r)
